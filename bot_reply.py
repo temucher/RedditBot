@@ -1,4 +1,4 @@
-import praw, os, pdb, re, random
+import praw, os, random
 
 reddit = praw.Reddit('bot1')
 
@@ -11,21 +11,32 @@ else:
         posts_replied_to = list(filter(None, posts_replied_to))
 
 
-subreddit = reddit.subreddit("StarWars")
+subreddit = reddit.subreddit("test")
+# StarWars+PrequelMemes+SequelMemes
+
+
+def getQuote():
+    rand = random.randint(0, len(quotes)-1)
+    return quotes[rand]
 
 
 with open("quotes.txt", "r") as g:
-    for line in g:
-        quotes = line.strip()
+    quotes = [line.strip() for line in g]
 
-for submission in subreddit.new(limit=100):
+
+for submission in subreddit.new(limit=10):
     if submission.id not in posts_replied_to:
-        print("Got to here")
-        if re.search("star wars", submission.title, re.IGNORECASE):
+        print(submission.id)
+        print(posts_replied_to)
+        if "jar jar" in submission.title.lower():
             print("Replied to post: " + submission.title)
-            rand = random.randint(0, len(quotes))
-            submission.reply(str(quotes[rand]))
+            submission.reply(getQuote())
             posts_replied_to.append(submission.id)
+        for comment in submission.comments:
+            if "jar jar" in comment.body.lower():
+                print("Replied to comment: " + comment.id)
+                comment.reply(getQuote())
+
 
 with open("posts_replied_to.txt", "w") as f:
     for post_id in posts_replied_to:
