@@ -2,9 +2,9 @@ import praw, os, random
 
 
 def botLogin():
-    # create reddit instance with parameters from praw.ini file
+    # create reddit instance with parameters from praw.ini file and log in
     reddit = praw.Reddit('bot1')
-    subreddit = reddit.subreddit("test")
+    subreddit = reddit.subreddit('StarWars+PrequelMemes+SequelMemes')
     # change this back
     # StarWars+PrequelMemes+SequelMemes
     return subreddit
@@ -26,7 +26,7 @@ def main(subreddit):
 
     # look at the top new submissions, find posts and comments that
     #  haven't been commented on by this bot
-    for submission in subreddit.new(limit=10):  # potentially change limit here?
+    for submission in subreddit.new(limit=100):  # potentially change limit here?
         if submission.id not in posts_replied_to:
             print(submission.id)
             print(posts_replied_to)
@@ -53,4 +53,3 @@ def main(subreddit):
 
 subreddit = botLogin()
 main(subreddit)
-
