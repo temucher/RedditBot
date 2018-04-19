@@ -26,7 +26,7 @@ def main(subreddit):
 
     # look at the top new submissions, find posts and comments that
     #  haven't been commented on by this bot
-    for submission in subreddit.new(limit=100):  # potentially change limit here?
+    for submission in subreddit.new(limit=400):  # potentially change limit here?
         if submission.id not in posts_replied_to:
             print(submission.id)
             print(posts_replied_to)
