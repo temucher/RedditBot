@@ -1,9 +1,18 @@
 import praw, os, random
 
+# get environment variables
+CLIENT_ID = os.environ.get('CLIENT_ID')
+CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
+PASSWORD = os.environ.get('PASSWORD')
+USER_AGENT = os.environ.get('USER_AGENT')
+USERNAME = os.environ.get('USERNAME')
+
+
 
 def botLogin():
-    # create reddit instance with parameters from praw.ini file and log in
-    reddit = praw.Reddit('bot1')
+    # create reddit instance with parameters from environment variables and log in
+    reddit = praw.Reddit(client_id=CLIENT_ID, client_secret=CLIENT_SECRET,
+                         password=PASSWORD, user_agent=USER_AGENT, username=USERNAME)
     subreddit = reddit.subreddit('StarWars+PrequelMemes+SequelMemes')
     # change this back
     # StarWars+PrequelMemes+SequelMemes
@@ -32,14 +41,14 @@ def main(subreddit):
             print(posts_replied_to)
             if "jar jar" in submission.title.lower():
                 print("Replied to post: " + submission.title)
-                submission.reply(getQuote())
+                submission.reply(getQuote() + "\n\n Beep boop I am a bot | Here is the [code](https://github.com/temucher/RedditBot)")
                 posts_replied_to.append(submission.id)
 
         for comment in submission.comments:
             if comment.id not in comments_replied_to:
                 if "jar jar" in comment.body.lower():
                     print("Replied to comment: " + comment.id)
-                    comment.reply(getQuote())
+                    comment.reply(getQuote() + "\n\n Beep boop I am a bot | Here is the [code](https://github.com/temucher/RedditBot)")
                     comments_replied_to.append(comment.id)
 
     # add post and comment id's to files so that next time this

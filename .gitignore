@@ -1,6 +1,3 @@
-secrets.txt
 praw.ini
-posts_replied_to.txt
 myvenv/
 .idea/
-bot_read.py
