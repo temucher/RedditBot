@@ -20,17 +20,17 @@ def botLogin():
 
 
 def getQuote():
-    with open("quotes.txt", "r") as g:
+    with open("/home/tjsmuch/RedditBot/quotes.txt", "r") as g:
         quotes = [line.strip() for line in g]
     rand = random.randint(0, len(quotes)-1)
     return quotes[rand]
 
 
 def main(subreddit):
-    with open("posts_replied_to.txt", "r") as f:
+    with open("/home/tjsmuch/RedditBot/posts_replied_to.txt", "r") as f:
         posts_replied_to = [line.strip() for line in f]
 
-    with open("comments_replied_to.txt") as f:
+    with open("/home/tjsmuch/RedditBot/comments_replied_to.txt") as f:
         comments_replied_to = [line.strip() for line in f]
 
     # look at the top new submissions, find posts and comments that
@@ -53,10 +53,10 @@ def main(subreddit):
 
     # add post and comment id's to files so that next time this
     # is run, we don't comment on the same posts/comments
-    with open("posts_replied_to.txt", "w") as f:
+    with open("/home/tjsmuch/RedditBot/posts_replied_to.txt", "w") as f:
         f.write('\n'.join(posts_replied_to))
 
-    with open("comments_replied_to.txt", "w") as f:
+    with open("/home/tjsmuch/RedditBot/comments_replied_to.txt", "w") as f:
         f.write('\n'.join(comments_replied_to))
 
 
